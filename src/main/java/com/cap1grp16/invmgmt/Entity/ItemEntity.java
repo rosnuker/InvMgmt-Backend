@@ -1,8 +1,6 @@
 package com.cap1grp16.invmgmt.Entity;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,15 +28,10 @@ public class ItemEntity {
 
     private String designation;
     private int invoiceNumber;
-
-    @DateTimeFormat(pattern = "MM.dd.yyyy")
-    private Date invoiceDate;
-    
+    private LocalDate invoiceDate;
     private String supplier;
     private int quantity;
-
-    @Column(name = "UOM")
-    private String uom;
+    private String UOM;
 
     //to be implemented (another table)
     private String description;
@@ -58,7 +51,7 @@ public class ItemEntity {
     }
 
     public ItemEntity(int issueOrder, String department, String accPerson, String designation, int invoiceNumber,
-            Date invoiceDate, String supplier, int quantity, String uom, String description, float unitCost,
+            LocalDate invoiceDate, String supplier, int quantity, String uom, String description, float unitCost,
             float totalCost, String inventoryLocation, String status, String lifespan, String remarks) {
         this.issueOrder = issueOrder;
         this.department = department;
@@ -126,11 +119,11 @@ public class ItemEntity {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public Date getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
+    public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 

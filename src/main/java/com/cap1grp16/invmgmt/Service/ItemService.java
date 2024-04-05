@@ -2,6 +2,8 @@ package com.cap1grp16.invmgmt.Service;
 
 import java.util.List;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,9 @@ public class ItemService {
     @Autowired
     ItemRepository irepo;
 
-    public ItemEntity addItem(ItemEntity item) {
+    public ItemEntity addItem(LocalDate date, ItemEntity item) {
+        item.setInvoiceDate(date);
+
         return irepo.save(item);
     }
 
