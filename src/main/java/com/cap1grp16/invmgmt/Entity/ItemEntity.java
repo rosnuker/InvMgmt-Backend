@@ -2,11 +2,14 @@ package com.cap1grp16.invmgmt.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,7 +34,9 @@ public class ItemEntity {
     private LocalDate invoiceDate;
     private String supplier;
     private int quantity;
-    private String UOM;
+
+    @Column(name = "uom")
+    private String unitOfMeasurement;
 
     //to be implemented (another table)
     private String description;
@@ -39,8 +44,9 @@ public class ItemEntity {
     private float unitCost;
     private float totalCost;
 
-    //to be implemented (another table)
-    private String inventoryLocation;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "lid")
+    private LocationEntity location;
 
     private String status;
     private String lifespan;
@@ -51,8 +57,8 @@ public class ItemEntity {
     }
 
     public ItemEntity(int issueOrder, String department, String accPerson, String designation, int invoiceNumber,
-            LocalDate invoiceDate, String supplier, int quantity, String uom, String description, float unitCost,
-            float totalCost, String inventoryLocation, String status, String lifespan, String remarks) {
+            LocalDate invoiceDate, String supplier, int quantity, String unitOfMeasurement, String description,
+            float unitCost, float totalCost, LocationEntity location, String status, String lifespan, String remarks) {
         this.issueOrder = issueOrder;
         this.department = department;
         this.accPerson = accPerson;
@@ -61,11 +67,11 @@ public class ItemEntity {
         this.invoiceDate = invoiceDate;
         this.supplier = supplier;
         this.quantity = quantity;
-        this.uom = uom;
+        this.unitOfMeasurement = unitOfMeasurement;
         this.description = description;
         this.unitCost = unitCost;
         this.totalCost = totalCost;
-        this.inventoryLocation = inventoryLocation;
+        this.location = location;
         this.status = status;
         this.lifespan = lifespan;
         this.remarks = remarks;
@@ -143,12 +149,12 @@ public class ItemEntity {
         this.quantity = quantity;
     }
 
-    public String getUom() {
-        return uom;
+    public String getUnitOfMeasurement() {
+        return unitOfMeasurement;
     }
 
-    public void setUom(String uom) {
-        this.uom = uom;
+    public void setUnitOfMeasurement(String unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     public String getDescription() {
@@ -175,12 +181,12 @@ public class ItemEntity {
         this.totalCost = totalCost;
     }
 
-    public String getInventoryLocation() {
-        return inventoryLocation;
+    public LocationEntity getLocation() {
+        return location;
     }
 
-    public void setInventoryLocation(String inventoryLocation) {
-        this.inventoryLocation = inventoryLocation;
+    public void setLocation(LocationEntity location) {
+        this.location = location;
     }
 
     public String getStatus() {
